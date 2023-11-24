@@ -3,7 +3,7 @@ package tiqueto.model;
 import tiqueto.IOperacionesWeb;
 
 public class WebCompraConciertos implements IOperacionesWeb{
-	private static final int REPOSICION_ENTRADAS = 10;
+	private int REPOSICION_ENTRADAS = 0;
 	private int entradasDisponibles;
 	private boolean ventaAbierta;
 
@@ -49,6 +49,11 @@ public class WebCompraConciertos implements IOperacionesWeb{
 		ventaAbierta = false;
 		mensajeWeb("Venta cerrada. No se pueden comprar más entradas.");
 	}
+	//Creado por mí
+	public synchronized void abrirVenta() {
+		ventaAbierta = true;
+		mensajeWeb("Venta abierta. Se pueden comprar más entradas.");
+	}
 
 
 	@Override
@@ -71,11 +76,5 @@ public class WebCompraConciertos implements IOperacionesWeb{
 		System.out.println(System.currentTimeMillis() + "| WebCompra: " + mensaje);
 		
 	}
-	public int precioEntrada() {
-		return precioEntrada;
-	}
-
-
-	private int precioEntrada;
 
 }

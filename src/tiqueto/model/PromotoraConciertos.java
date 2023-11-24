@@ -29,9 +29,11 @@ public class PromotoraConciertos extends Thread {
                e.printStackTrace();
            }
        }
-
+       webCompra.cerrarVenta();
+//(webCompra.entradasRestantes() > 0 && webCompra.entradasRestantes() < TOTAL_ENTRADAS)
        // Repone entradas hasta que ya no hay más por reponer o se alcanza el total deseado
-       while (webCompra.entradasRestantes() > 0 && webCompra.entradasRestantes() < TOTAL_ENTRADAS) {
+       //while (webCompra.entradasRestantes() < REPOSICION_ENTRADAS) {
+       while (webCompra.entradasRestantes()==0) {
            int entradasReponer = Math.min(REPOSICION_ENTRADAS, TOTAL_ENTRADAS - webCompra.entradasRestantes());
            int entradasReponidas = webCompra.reponerEntradas(entradasReponer);
 
@@ -50,7 +52,8 @@ public class PromotoraConciertos extends Thread {
        }
 
        // Cierra la venta después de reponer todas las entradas o alcanzar el total deseado
-       webCompra.cerrarVenta();
+      // webCompra.cerrarVenta();
+       webCompra.abrirVenta();
        mensajePromotor("¡Reposición de entradas completa! Venta cerrada.");
    }
 
