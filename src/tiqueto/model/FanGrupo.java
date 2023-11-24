@@ -1,6 +1,6 @@
 package tiqueto.model;
 
-import static tiqueto.EjemploTicketMaster.MAX_ENTRADAS_POR_FAN;
+import tiqueto.EjemploTicketMaster;
 
 public class FanGrupo extends Thread {
 
@@ -9,79 +9,56 @@ public class FanGrupo extends Thread {
     public String tabuladores = "\t\t\t\t";
     int entradasCompradas = 0;
 
-    //Agregado: private int preciEntrada;
-    private int precioEntrada;
-
     public FanGrupo(WebCompraConciertos web, int numeroFan) {
         super();
         this.numeroFan = numeroFan;
         this.webCompra = web;
     }
 
-    /*@Override
-    public void run() {
-
-        // Comprobamos si hay entradas disponibles
-        if (webCompra.hayEntradas()) {
-
-            // Compramos una entrada
-            boolean entradasCompradas = webCompra.comprarEntrada();
-
-            // Almacenamos el precio de la entrada
-            precioEntrada = webCompra.precioEntrada();
-
-            // Imprimimos el número de entradas compradas y el precio
-            mensajeFan("He comprado " + entradasCompradas + " entradas a un precio de " + precioEntrada);
-
-            // Nos quedamos dormidos
-            try {
-                Thread.sleep((int) (Math.random() * 3 + 1));
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        } else {
-
-            // Imprimimos que no hay entradas disponibles
-            mensajeFan("No hay entradas disponibles");
-        }
-
-    }*/
     @Override
     public void run() {
         mensajeFan("¡Estoy emocionado por el concierto!");
 
         // Intentamos comprar entradas hasta que se cierre la venta o alcancemos el límite
-        while (webCompra.hayEntradas() && (entradasCompradas < MAX_ENTRADAS_POR_FAN || webCompra.entradasRestantes() > 0)) {
-            // Intentamos comprar una entrada
-            if (webCompra.comprarEntrada()) {
-                entradasCompradas++;
-                mensajeFan("¡Entrada comprada! Total entradas: " + entradasCompradas);
+        while (!webCompra.isVentaCerrada) {
+            if (entradasCompradas != EjemploTicketMaster.MAX_ENTRADAS_POR_FAN) {
+                mensajeFan("Voy a intentar comprar una entrada... ¡Espero que no me la quiten!");
 
-                // Simulamos un tiempo de sueño entre 1 y 3 segundos
-                int tiempoSueño = 1000 + (int) (Math.random() * 2000);
-                try {
-                    sleep(tiempoSueño);
-                    System.out.println("Esperando fan "+tiempoSueño);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                // Si no se pudo comprar, salimos del bucle
-                mensajeFan("No pude comprar entrada. Venta cerrada o no hay entradas disponibles.");
-                break;
+                // Intentamos comprar una entrada
+                if (webCompra.comprarEntrada()) {
+                    entradasCompradas++;
+                    mensajeFan("¡Entrada comprada! Total entradas que llevo: " + entradasCompradas);
+
+                    // Simulamos un tiempo de sueño entre 1 y 3 segundos
+                    int tiempoSueño = 1000 + (int) (Math.random() * 2000);
+                    try {
+                        sleep(tiempoSueño);
+                        System.out.println("Fan durmiendo de 1 a 3 segundos " + tiempoSueño);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        // e.printStackTrace();
+                        System.out.println("El hilo ha sido interrumpido: " + e);
+                    }
+                } /*else {
+                    // Si no se pudo comprar, salimos del bucle
+                    mensajeFan("No pude comprar entrada. Venta cerrada o no hay entradas disponibles.");
+                    break;
+                }*/
             }
         }
         mensajeFan("¡Terminé mi compra de entradas!");
     }
-        public void dimeEntradasCompradas () {
-            mensajeFan("Sólo he conseguido: " + entradasCompradas);
-        }
 
-        /**
-         * Método a usar para cada impresión por pantalla
-         * @param mensaje Mensaje que se quiere lanzar por pantalla
-         */
-        private void mensajeFan (String mensaje){
-            System.out.println(System.currentTimeMillis() + "|" + tabuladores + " Fan " + this.numeroFan + ": " + mensaje);
-        }
+    public void dimeEntradasCompradas() {
+        mensajeFan("Sólo he conseguido: " + entradasCompradas);
     }
+
+    /**
+     * Método a usar para cada impresión por pantalla
+     *
+     * @param mensaje Mensaje que se quiere lanzar por pantalla
+     */
+    private void mensajeFan(String mensaje) {
+        System.out.println(System.currentTimeMillis() + "|" + tabuladores + " Fan " + this.numeroFan + ": " + mensaje);
+    }
+}
