@@ -3,23 +3,14 @@ package tiqueto.model;
 import tiqueto.EjemploTicketMaster;
 import tiqueto.IOperacionesWeb;
 
+/**
+ * WebCompraConciertos: Es el monitor del programa
+ */
 public class WebCompraConciertos implements IOperacionesWeb {
-    //La tengo que borrar
-    // private int REPOSICION_ENTRADAS = 0;
     private int entradasDisponibles = 0;
     private int entradasVendidas = 0;
 
-    // private boolean ventaAbierta;
     public boolean isVentaCerrada = false;
-
-
-    /*public WebCompraConciertos(int totalEntradas) {
-        this.entradasDisponibles = totalEntradas;
-        this.ventaAbierta = true;
-
-        //super();
-    }*/
-
     public WebCompraConciertos() {
         super();
     }
@@ -28,10 +19,8 @@ public class WebCompraConciertos implements IOperacionesWeb {
     public synchronized boolean comprarEntrada() {
         if (hayEntradas()) {
             // Lógica para realizar la compra de la entrada
-            // ...
             entradasVendidas++;
             entradasDisponibles--;
-            //He cambiado entrdasDisponibles por entradasRestantes()
             mensajeWeb("¡Entrada comprada! Quedan: " + entradasRestantes()+" entradas totales por vender.");
             return true;
         } else {

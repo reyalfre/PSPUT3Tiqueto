@@ -4,6 +4,9 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import static tiqueto.EjemploTicketMaster.REPOSICION_ENTRADAS;
 
+/**
+ * PromotoraConciertos: Es la clase productora del programa
+ */
 public class PromotoraConciertos extends Thread {
 
     final WebCompraConciertos webCompra;

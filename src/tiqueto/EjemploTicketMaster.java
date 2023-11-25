@@ -16,7 +16,7 @@ public class EjemploTicketMaster {
 	public static int REPOSICION_ENTRADAS = 2;
 
 	// El número máximo de entradas por fan
-	public static int MAX_ENTRADAS_POR_FAN = 2;
+	public static int MAX_ENTRADAS_POR_FAN = 10;
 
 	// El número total de fans
 	public static int NUM_FANS = 5;
@@ -53,6 +53,8 @@ public class EjemploTicketMaster {
 		for (FanGrupo fan : fans) {
 			fan.dimeEntradasCompradas();
 		}
+		//Sirve para finalizar correctamente el programa (finalizará después de la impresión de las entradas que han conseguido los fanes)
+		System.exit(0);
 	}
 
 }
