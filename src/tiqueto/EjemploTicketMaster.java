@@ -7,29 +7,31 @@ import tiqueto.model.FanGrupo;
 import tiqueto.model.PromotoraConciertos;
 import tiqueto.model.WebCompraConciertos;
 
+/**
+ * @version 1.0
+ * @author Alfredo Rafael Maldonado Pertuz
+ * @since 20/11/2023
+ */
 public class EjemploTicketMaster {
 
 	// Total de entradas que se vender�n
-	public static int TOTAL_ENTRADAS = 20;
+	public static int TOTAL_ENTRADAS = 100;
 
 	// El número de entradas que reponerá cada vez el promotor
-	public static int REPOSICION_ENTRADAS = 2;
+	public static int REPOSICION_ENTRADAS = 3;
 
 	// El número máximo de entradas por fan
-	public static int MAX_ENTRADAS_POR_FAN = 10;
+	public static int MAX_ENTRADAS_POR_FAN = 9;
 
 	// El número total de fans
-	public static int NUM_FANS = 5;
+	public static int NUM_FANS = 14;
 
 	public static void main(String[] args) throws InterruptedException {
 
 		String mensajeInicial = "[ Empieza la venta de tickets. Se esperan %d fans, y un total de %d entradas ]";
 		System.out.println(String.format(mensajeInicial, NUM_FANS, TOTAL_ENTRADAS));
-		//Le añadí al constructor TOTAL_ENTRADAS
-		//WebCompraConciertos webCompra = new WebCompraConciertos(TOTAL_ENTRADAS);
 		WebCompraConciertos webCompra = new WebCompraConciertos();
 		PromotoraConciertos liveNacion = new PromotoraConciertos(webCompra);
-		//PromotoraConciertos liveNacion = new PromotoraConciertos.getInstance(webCompra);
 		List<FanGrupo> fans = new ArrayList<>();
 
 		// Creamos todos los fans

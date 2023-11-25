@@ -1,5 +1,11 @@
 package tiqueto;
 
+/**
+ * @version 1.0
+ * @author Alfredo Rafael Maldonado Pertuz
+ * @since 20/11/2023
+ * Interfaz para la clase WebCompraConciertos
+ */
 public interface IOperacionesWeb {
 
 	/**

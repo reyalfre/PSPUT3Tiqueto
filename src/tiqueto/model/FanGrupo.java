@@ -3,6 +3,9 @@ package tiqueto.model;
 import tiqueto.EjemploTicketMaster;
 
 /**
+ * @version 1.0
+ * @author Alfredo Rafael Maldonado Pertuz
+ * @since 20/11/2023
  * Clase FanGrupo: Es la clase consumidora del programa
  */
 public class FanGrupo extends Thread {
@@ -30,7 +33,7 @@ public class FanGrupo extends Thread {
             if (entradasCompradas != EjemploTicketMaster.MAX_ENTRADAS_POR_FAN) {
                 mensajeFan("Voy a intentar comprar una entrada... ¡Espero que no me la quiten!");
 
-                // Intentamos comprar una entrada
+                // If cuando se compran entradas
                 if (webCompra.comprarEntrada()) {
                     entradasCompradas++;
                     mensajeFan("¡Entrada comprada! Total entradas que llevo: " + entradasCompradas);
@@ -44,11 +47,7 @@ public class FanGrupo extends Thread {
                         Thread.currentThread().interrupt();
                         System.out.println("El hilo ha sido interrumpido: " + e);
                     }
-                } /*else {
-                    // Si no se pudo comprar, salimos del bucle
-                    mensajeFan("No pude comprar entrada. Venta cerrada o no hay entradas disponibles.");
-                    break;
-                }*/
+                }
             }
         }
         mensajeFan("¡Terminé mi compra de entradas!");
